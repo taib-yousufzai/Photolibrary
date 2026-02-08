@@ -16,7 +16,7 @@ echo ✅ Build successful!
 
 echo.
 echo 2. Applying CORS configuration to Firebase Storage...
-gsutil cors set cors.json gs://lifeasy-lib-9dc5b.appspot.com
+gsutil cors set cors.json gs://brass-libs.firebasestorage.app
 if %errorlevel% neq 0 (
     echo.
     echo ⚠️  CORS configuration failed! Continuing with deployment...
@@ -27,7 +27,7 @@ if %errorlevel% neq 0 (
 
 echo.
 echo 3. Deploying to Firebase Hosting...
-call npx firebase deploy --only hosting --project lifeasy-lib-9dc5b
+call npx firebase deploy --only hosting --project brass-libs
 if %errorlevel% neq 0 (
     echo.
     echo ❌ Deployment failed! Please check the errors above.

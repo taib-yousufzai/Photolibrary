@@ -79,16 +79,16 @@ const Register = () => {
     // Check if email will get automatic role
     const getAutomaticRole = (email) => {
         const adminEmails = [
-            'admin@lifeasy.com',
-            'owner@lifeasy.com', 
-            'manager@lifeasy.com',
+            'admin@brassspace.com',
+            'owner@brassspace.com', 
+            'manager@brassspace.com',
             '1921sumitabe@gmail.com'
         ];
         
         const staffEmails = [
-            'staff@lifeasy.com',
-            'designer@lifeasy.com',
-            'architect@lifeasy.com'
+            'staff@brassspace.com',
+            'designer@brassspace.com',
+            'architect@brassspace.com'
         ];
         
         if (adminEmails.includes(email.toLowerCase())) return 'admin';
@@ -120,7 +120,7 @@ const Register = () => {
                         </h1>
                         <p className="brand-description">
                             Create your account and select the appropriate role for your needs. 
-                            Get access to thousands of curated interior design resources.
+                            Get access to thousands of curated interior design resources from Brass Space Interior.
                         </p>
                         <div className="brand-features">
                             <div className="feature">

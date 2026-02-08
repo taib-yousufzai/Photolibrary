@@ -162,8 +162,8 @@
     justify-content: center;
     width: 40px;
     height: 40px;
-    background: none;
-    border: none;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     color: var(--text-secondary);
     cursor: pointer;
     border-radius: var(--radius-md);
@@ -172,8 +172,14 @@
 }
 
 .header-btn:hover {
-    background: var(--bg-hover);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.15);
     color: var(--text-primary);
+    transform: translateY(-1px);
+}
+
+.header-btn:active {
+    transform: translateY(0);
 }
 
 .notification-badge {

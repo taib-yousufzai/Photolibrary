@@ -1,6 +1,8 @@
 // Main App Component with Routing
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { FirebaseAuthProvider, useAuth } from './context/FirebaseAuthContext';
+import { ThemeProvider } from './context/ThemeContext';
+import { NotificationProvider } from './context/NotificationContext';
 import { useCategorySync } from './hooks/useCategorySync';
 
 // Layout
@@ -14,8 +16,9 @@ import Dashboard from './pages/Dashboard';
 import Categories from './pages/Categories';
 import SubCategories from './pages/SubCategories';
 import Gallery from './pages/Gallery';
-import Upload from './pages/Upload';
+import BulkUpload from './pages/Upload/BulkUpload';
 import Favorites from './pages/Favorites';
+import Search from './pages/Search';
 import CategoryManagement from './pages/Admin/CategoryManagement';
 import CategoryEditor from './pages/Admin/CategoryEditor';
 import Analytics from './pages/Admin/Analytics';
@@ -51,6 +54,35 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
     return children;
 };
 
+// Quotation Builder Access Control Component
+const QuotationBuilderGuard = () => {
+    const { hasPermission } = useAuth();
+    
+    if (!hasPermission('canAccessQuotationBuilder')) {
+        return (
+            <div className="permission-denied">
+                <div className="permission-denied-content">
+                    <h1>🔒 Access Denied</h1>
+                    <p>You don't have permission to access the Quotation Builder.</p>
+                    <p>This feature is available for Admin and Staff users only.</p>
+                    <button className="btn btn-primary" onClick={() => window.location.href = '/'}>
+                        Go to Dashboard
+                    </button>
+                </div>
+            </div>
+        );
+    }
+    
+    // Redirect to actual Quotation Builder
+    window.location.href = 'https://quotationbuilder-d79e9.web.app/';
+    return (
+        <div className="loading-screen">
+            <div className="loading-spinner"></div>
+            <p>Redirecting to Quotation Builder...</p>
+        </div>
+    );
+};
+
 // App Routes
 const AppRoutes = () => {
     const { user } = useAuth();
@@ -80,18 +112,29 @@ const AppRoutes = () => {
                 }
             >
                 <Route index element={<Dashboard />} />
+                <Route path="search" element={<Search />} />
                 <Route path="categories" element={<Categories />} />
                 <Route path="category/:categoryId" element={<SubCategories />} />
                 <Route path="category/:categoryId/:subCategoryId/:mediaType" element={<Gallery />} />
                 <Route path="favorites" element={<Favorites />} />
-                <Route path="upload" element={<Upload />} />
+                
+                {/* Upload - Admin and Staff only */}
+                <Route path="upload" element={
+                    <ProtectedRoute allowedRoles={[ROLES.ADMIN, ROLES.STAFF]}>
+                        <BulkUpload />
+                    </ProtectedRoute>
+                } />
 
-                {/* Placeholder routes for future features */}
-                {/* <Route path="settings" element={<PlaceholderPage title="Settings" />} /> */}
+                {/* Quotation Builder - Admin and Staff only */}
+                <Route path="quotation-builder" element={
+                    <ProtectedRoute allowedRoles={[ROLES.ADMIN, ROLES.STAFF]}>
+                        <QuotationBuilderGuard />
+                    </ProtectedRoute>
+                } />
 
                 {/* Admin Routes */}
                 <Route path="admin/analytics" element={
-                    <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
+                    <ProtectedRoute allowedRoles={[ROLES.ADMIN, ROLES.STAFF]}>
                         <Analytics />
                     </ProtectedRoute>
                 } />
@@ -128,10 +171,14 @@ const AppRoutes = () => {
 function App() {
     return (
         <BrowserRouter>
-            <FirebaseAuthProvider>
-                <AppRoutes />
-                <ConnectionStatus />
-            </FirebaseAuthProvider>
+            <ThemeProvider>
+                <NotificationProvider>
+                    <FirebaseAuthProvider>
+                        <AppRoutes />
+                        <ConnectionStatus />
+                    </FirebaseAuthProvider>
+                </NotificationProvider>
+            </ThemeProvider>
         </BrowserRouter>
     );
 }

@@ -49,7 +49,7 @@ async function verifyCORS(imageUrl) {
 }
 
 // Example usage - replace with actual Firebase Storage URL
-const exampleUrl = 'https://firebasestorage.googleapis.com/v0/b/lifeasy-lib-9dc5b.appspot.com/o/interior-library%2Ftest-image.jpg?alt=media';
+const exampleUrl = 'https://firebasestorage.googleapis.com/v0/b/brass-libs.appspot.com/o/interior-library%2Ftest-image.jpg?alt=media';
 
 console.log('==========================================');
 console.log('    Firebase Storage CORS Verification');

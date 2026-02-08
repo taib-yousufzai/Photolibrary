@@ -1,7 +1,25 @@
-// Interior Design Library - Categories Data
-// All 14 main categories with their sub-categories
+// Brass Space Interior Solution - Categories Data
+// All 15 main categories with their sub-categories
 
-export const categories = [
+// Helper function to generate random counts
+const generateRandomCount = (min = 8, max = 35) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+// Helper function to add random counts to subcategories
+const addRandomCounts = (categories) => {
+    return categories.map(category => ({
+        ...category,
+        subCategories: category.subCategories.map(subCat => ({
+            ...subCat,
+            imageCount: generateRandomCount(8, 35), // Random between 8-35 images
+            videoCount: generateRandomCount(2, 12)  // Random between 2-12 videos
+        }))
+    }));
+};
+
+// Base categories data
+const baseCategories = [
     {
         id: 'kitchen',
         name: 'Kitchen',
@@ -10,16 +28,16 @@ export const categories = [
         description: 'Modern kitchen designs from modular to luxury',
         color: '#f59e0b',
         subCategories: [
-            { id: 'l-shape', name: 'L-Shape Kitchen', imageCount: 0, videoCount: 0 },
-            { id: 'u-shape', name: 'U-Shape Kitchen', imageCount: 0, videoCount: 0 },
-            { id: 'parallel', name: 'Parallel Kitchen', imageCount: 0, videoCount: 0 },
-            { id: 'island', name: 'Island Kitchen', imageCount: 0, videoCount: 0 },
-            { id: 'g-shape', name: 'G-Shape Kitchen', imageCount: 0, videoCount: 0 },
-            { id: 'straight', name: 'Straight Kitchen', imageCount: 0, videoCount: 0 },
-            { id: 'open', name: 'Open Kitchen', imageCount: 0, videoCount: 0 },
-            { id: 'modular', name: 'Modular Kitchen', imageCount: 0, videoCount: 0 },
-            { id: 'small', name: 'Small Kitchen', imageCount: 0, videoCount: 0 },
-            { id: 'luxury', name: 'Luxury Kitchen', imageCount: 0, videoCount: 0 }
+            { id: 'l-shape', name: 'L-Shape Kitchen' },
+            { id: 'u-shape', name: 'U-Shape Kitchen' },
+            { id: 'parallel', name: 'Parallel Kitchen' },
+            { id: 'island', name: 'Island Kitchen' },
+            { id: 'g-shape', name: 'G-Shape Kitchen' },
+            { id: 'straight', name: 'Straight Kitchen' },
+            { id: 'open', name: 'Open Kitchen' },
+            { id: 'modular', name: 'Modular Kitchen' },
+            { id: 'small', name: 'Small Kitchen' },
+            { id: 'luxury', name: 'Luxury Kitchen' }
         ]
     },
     {
@@ -30,14 +48,14 @@ export const categories = [
         description: 'Stunning living room designs and wall treatments',
         color: '#8b5cf6',
         subCategories: [
-            { id: 'tv-unit', name: 'TV Unit Design', imageCount: 0, videoCount: 0 },
-            { id: 'cnc-wall', name: 'CNC Wall Design', imageCount: 0, videoCount: 0 },
-            { id: 'wall-paneling', name: 'Wall Paneling', imageCount: 0, videoCount: 0 },
-            { id: 'sofa-back', name: 'Sofa Back Panel', imageCount: 0, videoCount: 0 },
-            { id: 'partition', name: 'Partition Design', imageCount: 0, videoCount: 0 },
-            { id: 'wallpaper', name: 'Wallpaper Design', imageCount: 0, videoCount: 0 },
-            { id: 'lighting', name: 'Lighting Design', imageCount: 0, videoCount: 0 },
-            { id: 'ceiling', name: 'Living False Ceiling', imageCount: 0, videoCount: 0 }
+            { id: 'tv-unit', name: 'TV Unit Design' },
+            { id: 'cnc-wall', name: 'CNC Wall Design' },
+            { id: 'wall-paneling', name: 'Wall Paneling' },
+            { id: 'sofa-back', name: 'Sofa Back Panel' },
+            { id: 'partition', name: 'Partition Design' },
+            { id: 'wallpaper', name: 'Wallpaper Design' },
+            { id: 'lighting', name: 'Lighting Design' },
+            { id: 'ceiling', name: 'Living False Ceiling' }
         ]
     },
     {
@@ -48,12 +66,12 @@ export const categories = [
         description: 'Cozy and elegant bedroom interiors',
         color: '#ec4899',
         subCategories: [
-            { id: 'master', name: 'Master Bedroom', imageCount: 0, videoCount: 0 },
-            { id: 'kids', name: 'Kids Bedroom', imageCount: 0, videoCount: 0 },
-            { id: 'guest', name: 'Guest Bedroom', imageCount: 0, videoCount: 0 },
-            { id: 'bed-back', name: 'Bed Back Panel', imageCount: 0, videoCount: 0 },
-            { id: 'lighting', name: 'Bedroom Lighting', imageCount: 0, videoCount: 0 },
-            { id: 'ceiling', name: 'Bedroom False Ceiling', imageCount: 0, videoCount: 0 }
+            { id: 'master', name: 'Master Bedroom' },
+            { id: 'kids', name: 'Kids Bedroom' },
+            { id: 'guest', name: 'Guest Bedroom' },
+            { id: 'bed-back', name: 'Bed Back Panel' },
+            { id: 'lighting', name: 'Bedroom Lighting' },
+            { id: 'ceiling', name: 'Bedroom False Ceiling' }
         ]
     },
     {
@@ -64,11 +82,11 @@ export const categories = [
         description: 'Elegant dining room setups and designs',
         color: '#14b8a6',
         subCategories: [
-            { id: 'table', name: 'Dining Table Design', imageCount: 0, videoCount: 0 },
-            { id: 'crockery', name: 'Crockery Unit', imageCount: 0, videoCount: 0 },
-            { id: 'bar', name: 'Bar Unit', imageCount: 0, videoCount: 0 },
-            { id: 'wall-panel', name: 'Dining Wall Panel', imageCount: 0, videoCount: 0 },
-            { id: 'ceiling', name: 'Dining False Ceiling', imageCount: 0, videoCount: 0 }
+            { id: 'table', name: 'Dining Table Design' },
+            { id: 'crockery', name: 'Crockery Unit' },
+            { id: 'bar', name: 'Bar Unit' },
+            { id: 'wall-panel', name: 'Dining Wall Panel' },
+            { id: 'ceiling', name: 'Dining False Ceiling' }
         ]
     },
     {
@@ -79,12 +97,12 @@ export const categories = [
         description: 'Modern and luxury bathroom designs',
         color: '#06b6d4',
         subCategories: [
-            { id: 'modern', name: 'Modern Bathroom', imageCount: 0, videoCount: 0 },
-            { id: 'luxury', name: 'Luxury Bathroom', imageCount: 0, videoCount: 0 },
-            { id: 'small', name: 'Small Bathroom', imageCount: 0, videoCount: 0 },
-            { id: 'vanity', name: 'Vanity Unit', imageCount: 0, videoCount: 0 },
-            { id: 'shower', name: 'Shower Area', imageCount: 0, videoCount: 0 },
-            { id: 'tile', name: 'Tile Design', imageCount: 0, videoCount: 0 }
+            { id: 'modern', name: 'Modern Bathroom' },
+            { id: 'luxury', name: 'Luxury Bathroom' },
+            { id: 'small', name: 'Small Bathroom' },
+            { id: 'vanity', name: 'Vanity Unit' },
+            { id: 'shower', name: 'Shower Area' },
+            { id: 'tile', name: 'Tile Design' }
         ]
     },
     {
@@ -95,12 +113,12 @@ export const categories = [
         description: 'Stylish wardrobe and storage solutions',
         color: '#a855f7',
         subCategories: [
-            { id: 'sliding', name: 'Sliding Wardrobe', imageCount: 0, videoCount: 0 },
-            { id: 'hinged', name: 'Hinged Wardrobe', imageCount: 0, videoCount: 0 },
-            { id: 'walkin', name: 'Walk-in Wardrobe', imageCount: 0, videoCount: 0 },
-            { id: 'open', name: 'Open Wardrobe', imageCount: 0, videoCount: 0 },
-            { id: 'glass', name: 'Glass Wardrobe', imageCount: 0, videoCount: 0 },
-            { id: 'kids', name: 'Kids Wardrobe', imageCount: 0, videoCount: 0 }
+            { id: 'sliding', name: 'Sliding Wardrobe' },
+            { id: 'hinged', name: 'Hinged Wardrobe' },
+            { id: 'walkin', name: 'Walk-in Wardrobe' },
+            { id: 'open', name: 'Open Wardrobe' },
+            { id: 'glass', name: 'Glass Wardrobe' },
+            { id: 'kids', name: 'Kids Wardrobe' }
         ]
     },
     {
@@ -111,12 +129,12 @@ export const categories = [
         description: 'Designer false ceiling patterns and styles',
         color: '#f97316',
         subCategories: [
-            { id: 'gypsum', name: 'Gypsum Ceiling', imageCount: 0, videoCount: 0 },
-            { id: 'pop', name: 'POP Ceiling', imageCount: 0, videoCount: 0 },
-            { id: 'wooden', name: 'Wooden Ceiling', imageCount: 0, videoCount: 0 },
-            { id: 'designer', name: 'Designer Ceiling', imageCount: 0, videoCount: 0 },
-            { id: 'cove', name: 'Cove Lighting Ceiling', imageCount: 0, videoCount: 0 },
-            { id: 'minimal', name: 'Minimal Ceiling', imageCount: 0, videoCount: 0 }
+            { id: 'gypsum', name: 'Gypsum Ceiling' },
+            { id: 'pop', name: 'POP Ceiling' },
+            { id: 'wooden', name: 'Wooden Ceiling' },
+            { id: 'designer', name: 'Designer Ceiling' },
+            { id: 'cove', name: 'Cove Lighting Ceiling' },
+            { id: 'minimal', name: 'Minimal Ceiling' }
         ]
     },
     {
@@ -127,12 +145,12 @@ export const categories = [
         description: 'Creative wall decoration ideas',
         color: '#eab308',
         subCategories: [
-            { id: 'cnc', name: 'CNC Wall Design', imageCount: 0, videoCount: 0 },
-            { id: 'wallpaper', name: 'Wallpaper', imageCount: 0, videoCount: 0 },
-            { id: 'paneling', name: 'Wall Paneling', imageCount: 0, videoCount: 0 },
-            { id: '3d-panels', name: '3D Wall Panels', imageCount: 0, videoCount: 0 },
-            { id: 'texture', name: 'Paint & Texture', imageCount: 0, videoCount: 0 },
-            { id: 'art', name: 'Wall Art', imageCount: 0, videoCount: 0 }
+            { id: 'cnc', name: 'CNC Wall Design' },
+            { id: 'wallpaper', name: 'Wallpaper' },
+            { id: 'paneling', name: 'Wall Paneling' },
+            { id: '3d-panels', name: '3D Wall Panels' },
+            { id: 'texture', name: 'Paint & Texture' },
+            { id: 'art', name: 'Wall Art' }
         ]
     },
     {
@@ -143,12 +161,12 @@ export const categories = [
         description: 'Stunning building exteriors and facades',
         color: '#64748b',
         subCategories: [
-            { id: 'modern', name: 'Modern Facade', imageCount: 0, videoCount: 0 },
-            { id: 'luxury', name: 'Luxury Facade', imageCount: 0, videoCount: 0 },
-            { id: 'glass', name: 'Glass Elevation', imageCount: 0, videoCount: 0 },
-            { id: 'stone', name: 'Stone Cladding', imageCount: 0, videoCount: 0 },
-            { id: 'wooden', name: 'Wooden Cladding', imageCount: 0, videoCount: 0 },
-            { id: 'balcony', name: 'Balcony Facade', imageCount: 0, videoCount: 0 }
+            { id: 'modern', name: 'Modern Facade' },
+            { id: 'luxury', name: 'Luxury Facade' },
+            { id: 'glass', name: 'Glass Elevation' },
+            { id: 'stone', name: 'Stone Cladding' },
+            { id: 'wooden', name: 'Wooden Cladding' },
+            { id: 'balcony', name: 'Balcony Facade' }
         ]
     },
     {
@@ -159,11 +177,11 @@ export const categories = [
         description: 'Beautiful balcony designs and gardens',
         color: '#22c55e',
         subCategories: [
-            { id: 'open', name: 'Open Balcony', imageCount: 0, videoCount: 0 },
-            { id: 'covered', name: 'Covered Balcony', imageCount: 0, videoCount: 0 },
-            { id: 'seating', name: 'Balcony Seating', imageCount: 0, videoCount: 0 },
-            { id: 'garden', name: 'Balcony Garden', imageCount: 0, videoCount: 0 },
-            { id: 'glass-railing', name: 'Glass Railing Balcony', imageCount: 0, videoCount: 0 }
+            { id: 'open', name: 'Open Balcony' },
+            { id: 'covered', name: 'Covered Balcony' },
+            { id: 'seating', name: 'Balcony Seating' },
+            { id: 'garden', name: 'Balcony Garden' },
+            { id: 'glass-railing', name: 'Glass Railing Balcony' }
         ]
     },
     {
@@ -174,11 +192,11 @@ export const categories = [
         description: 'Sacred temple and pooja room designs',
         color: '#dc2626',
         subCategories: [
-            { id: 'wooden', name: 'Wooden Mandir', imageCount: 0, videoCount: 0 },
-            { id: 'marble', name: 'Marble Mandir', imageCount: 0, videoCount: 0 },
-            { id: 'wall-mounted', name: 'Wall Mounted Mandir', imageCount: 0, videoCount: 0 },
-            { id: 'traditional', name: 'Traditional Temple', imageCount: 0, videoCount: 0 },
-            { id: 'modern', name: 'Modern Temple Design', imageCount: 0, videoCount: 0 }
+            { id: 'wooden', name: 'Wooden Mandir' },
+            { id: 'marble', name: 'Marble Mandir' },
+            { id: 'wall-mounted', name: 'Wall Mounted Mandir' },
+            { id: 'traditional', name: 'Traditional Temple' },
+            { id: 'modern', name: 'Modern Temple Design' }
         ]
     },
     {
@@ -189,11 +207,11 @@ export const categories = [
         description: 'Productive study and home office spaces',
         color: '#2563eb',
         subCategories: [
-            { id: 'home-library', name: 'Home Library', imageCount: 0, videoCount: 0 },
-            { id: 'study-table', name: 'Study Table Design', imageCount: 0, videoCount: 0 },
-            { id: 'bookshelf', name: 'Bookshelf Design', imageCount: 0, videoCount: 0 },
-            { id: 'kids-study', name: 'Kids Study Room', imageCount: 0, videoCount: 0 },
-            { id: 'home-office', name: 'Home Office', imageCount: 0, videoCount: 0 }
+            { id: 'home-library', name: 'Home Library' },
+            { id: 'study-table', name: 'Study Table Design' },
+            { id: 'bookshelf', name: 'Bookshelf Design' },
+            { id: 'kids-study', name: 'Kids Study Room' },
+            { id: 'home-office', name: 'Home Office' }
         ]
     },
     {
@@ -204,11 +222,11 @@ export const categories = [
         description: 'Home theatres and gaming spaces',
         color: '#7c3aed',
         subCategories: [
-            { id: 'theatre', name: 'Home Theatre', imageCount: 0, videoCount: 0 },
-            { id: 'gaming', name: 'Gaming Room', imageCount: 0, videoCount: 0 },
-            { id: 'music', name: 'Music Room', imageCount: 0, videoCount: 0 },
-            { id: 'media-wall', name: 'Media Wall Design', imageCount: 0, videoCount: 0 },
-            { id: 'acoustic', name: 'Acoustic Panel Design', imageCount: 0, videoCount: 0 }
+            { id: 'theatre', name: 'Home Theatre' },
+            { id: 'gaming', name: 'Gaming Room' },
+            { id: 'music', name: 'Music Room' },
+            { id: 'media-wall', name: 'Media Wall Design' },
+            { id: 'acoustic', name: 'Acoustic Panel Design' }
         ]
     },
     {
@@ -219,12 +237,12 @@ export const categories = [
         description: 'Professional commercial space designs',
         color: '#0891b2',
         subCategories: [
-            { id: 'office', name: 'Office Interior', imageCount: 0, videoCount: 0 },
-            { id: 'retail', name: 'Retail Shop', imageCount: 0, videoCount: 0 },
-            { id: 'restaurant', name: 'Restaurant Interior', imageCount: 0, videoCount: 0 },
-            { id: 'cafe', name: 'Cafe Interior', imageCount: 0, videoCount: 0 },
-            { id: 'salon', name: 'Salon Interior', imageCount: 0, videoCount: 0 },
-            { id: 'clinic', name: 'Clinic / Hospital Interior', imageCount: 0, videoCount: 0 }
+            { id: 'office', name: 'Office Interior' },
+            { id: 'retail', name: 'Retail Shop' },
+            { id: 'restaurant', name: 'Restaurant Interior' },
+            { id: 'cafe', name: 'Cafe Interior' },
+            { id: 'salon', name: 'Salon Interior' },
+            { id: 'clinic', name: 'Clinic / Hospital Interior' }
         ]
     },
     {
@@ -235,18 +253,21 @@ export const categories = [
         description: 'Material samples and finish options',
         color: '#78716c',
         subCategories: [
-            { id: 'laminates', name: 'Laminates', imageCount: 0, videoCount: 0 },
-            { id: 'plywood', name: 'Plywood', imageCount: 0, videoCount: 0 },
-            { id: 'mdf', name: 'MDF', imageCount: 0, videoCount: 0 },
-            { id: 'acrylic', name: 'Acrylic', imageCount: 0, videoCount: 0 },
-            { id: 'glass', name: 'Glass', imageCount: 0, videoCount: 0 },
-            { id: 'marble', name: 'Marble', imageCount: 0, videoCount: 0 },
-            { id: 'tiles', name: 'Tiles', imageCount: 0, videoCount: 0 },
-            { id: 'hardware', name: 'Hardware', imageCount: 0, videoCount: 0 },
-            { id: 'lighting', name: 'Lighting', imageCount: 0, videoCount: 0 }
+            { id: 'laminates', name: 'Laminates' },
+            { id: 'plywood', name: 'Plywood' },
+            { id: 'mdf', name: 'MDF' },
+            { id: 'acrylic', name: 'Acrylic' },
+            { id: 'glass', name: 'Glass' },
+            { id: 'marble', name: 'Marble' },
+            { id: 'tiles', name: 'Tiles' },
+            { id: 'hardware', name: 'Hardware' },
+            { id: 'lighting', name: 'Lighting' }
         ]
     }
 ];
+
+// Apply random counts to all categories
+export const categories = addRandomCounts(baseCategories);
 
 // Helper functions
 export const getCategoryById = (id) => categories.find(cat => cat.id === id);

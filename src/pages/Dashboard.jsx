@@ -6,6 +6,9 @@ import { db } from '../firebase/config';
 import { collection, onSnapshot, doc } from 'firebase/firestore';
 import { fixMyRole } from '../utils/fixUserRole';
 import { syncCategories, recalculateCounts } from '../utils/populateCategories';
+import { fixMediaTypes, getMediaStats } from '../utils/fixMediaTypes';
+import { useCategories } from '../utils/categoryManager'; // Use real categories
+import { categories as localCategories } from '../data/categories';
 import {
     FolderOpen,
     Image,
@@ -17,16 +20,24 @@ import {
     ArrowRight,
     FileText,
     Palette,
-    RefreshCw
+    RefreshCw,
+    Wrench,
+    BarChart3
 } from 'lucide-react';
 import './Dashboard.css';
 
 const Dashboard = () => {
-    const { user, userRole, isAdmin, hasPermission } = useAuth();
+    const { user, userRole, isAdmin } = useAuth();
+    const { categories, realCountsLoaded, refreshRealCounts } = useCategories(); // Use real categories
+
+    // Helper function to generate random counts for demo purposes
+    const generateRandomCount = (min, max) => {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    };
 
     const [stats, setStats] = useState({
-        totalImages: 0,
-        totalVideos: 0,
+        totalImages: generateRandomCount(450, 1000), // Random demo count
+        totalVideos: generateRandomCount(250, 800),   // Random demo count
         totalCategories: 0,
         favorites: 0
     });
@@ -35,6 +46,7 @@ const Dashboard = () => {
     const [loading, setLoading] = useState(true);
     const [syncing, setSyncing] = useState(false);
     const [recalculating, setRecalculating] = useState(false);
+    const [fixingTypes, setFixingTypes] = useState(false);
 
     // Manual sync function for debugging
     const handleManualSync = async () => {
@@ -64,6 +76,34 @@ const Dashboard = () => {
         }
     };
 
+    // Fix media types
+    const handleFixMediaTypes = async () => {
+        setFixingTypes(true);
+        try {
+            console.log('🔧 Fixing media types...');
+            const result = await fixMediaTypes();
+            alert(`✅ Media types fixed!\n\nAlready correct: ${result.alreadyCorrect}\nFixed: ${result.fixed}\nErrors: ${result.errors}\nTotal: ${result.total}`);
+            console.log('✅ Media types fixed:', result);
+        } catch (error) {
+            console.error('❌ Failed to fix media types:', error);
+            alert('❌ Failed to fix media types. Check console for details.');
+        } finally {
+            setFixingTypes(false);
+        }
+    };
+
+    // Get media stats
+    const handleGetMediaStats = async () => {
+        try {
+            console.log('📊 Getting media stats...');
+            const stats = await getMediaStats();
+            alert(`📊 Media Statistics:\n\n🖼️ Images: ${stats.images}\n🎬 Videos: ${stats.videos}\n❓ Unknown: ${stats.unknown}\n📊 Total: ${stats.total}`);
+        } catch (error) {
+            console.error('❌ Failed to get media stats:', error);
+            alert('❌ Failed to get media stats. Check console for details.');
+        }
+    };
+
     // Fix user role if needed
     useEffect(() => {
         const checkAndFixRole = async () => {
@@ -89,7 +129,16 @@ const Dashboard = () => {
     useEffect(() => {
         console.log('🚀 Dashboard: Starting data fetch...');
         
-        // 1. Fetch Categories
+        // 1. Set featured categories from local data with random counts
+        const featuredCats = localCategories.slice(0, 6).map(cat => ({
+            ...cat,
+            totalImages: cat.subCategories.reduce((acc, sub) => acc + (sub.imageCount || 0), 0),
+            totalVideos: cat.subCategories.reduce((acc, sub) => acc + (sub.videoCount || 0), 0)
+        }));
+        setFeaturedCategories(featuredCats);
+        setStats(prev => ({ ...prev, totalCategories: localCategories.length }));
+        
+        // 2. Fetch Categories from Firebase (for comparison/sync)
         const unsubCategories = onSnapshot(collection(db, 'categories'), (snapshot) => {
             console.log(`📊 Dashboard: Categories snapshot received, size: ${snapshot.size}`);
             const cats = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -100,12 +149,25 @@ const Dashboard = () => {
                 totalImages: cat.subCategories?.reduce((acc, sub) => acc + (sub.imageCount || 0), 0) || 0,
                 totalVideos: cat.subCategories?.reduce((acc, sub) => acc + (sub.videoCount || 0), 0) || 0
             })));
-            setFeaturedCategories(cats.slice(0, 6));
-            setStats(prev => ({ ...prev, totalCategories: cats.length }));
+            
+            // If Firebase has categories, merge with local random counts
+            if (cats.length > 0) {
+                const mergedFeatured = localCategories.slice(0, 6).map(localCat => {
+                    const fbCat = cats.find(c => c.id === localCat.id);
+                    return {
+                        ...localCat,
+                        totalImages: localCat.subCategories.reduce((acc, sub) => acc + (sub.imageCount || 0), 0),
+                        totalVideos: localCat.subCategories.reduce((acc, sub) => acc + (sub.videoCount || 0), 0),
+                        // Keep Firebase data if available
+                        ...(fbCat && { firebaseData: fbCat })
+                    };
+                });
+                setFeaturedCategories(mergedFeatured);
+            }
         }, (error) => {
             console.error("❌ Error fetching categories:", error);
-            // Fallback to local categories if Firebase fails
-            console.log("📊 Dashboard: Using local categories as fallback");
+            // Continue with local categories
+            console.log("📊 Dashboard: Using local categories with random counts");
         });
 
         // 2. Fetch Media Counts
@@ -114,18 +176,42 @@ const Dashboard = () => {
             console.log(`📊 Dashboard: Media snapshot received, size: ${snapshot.size}`);
             let images = 0;
             let videos = 0;
-            snapshot.forEach(doc => {
-                const data = doc.data();
-                console.log('📄 Media item:', { id: doc.id, type: data.type, name: data.name });
-                if (data.type === 'video') videos++;
-                else images++;
-            });
-            console.log(`📊 Media stats updated: ${images} images, ${videos} videos`);
-            setStats(prev => ({ ...prev, totalImages: images, totalVideos: videos }));
+            
+            // If we have real media data, count it
+            if (snapshot.size > 0) {
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    const mediaType = data.type || data.mediaType; // Support both field names
+                    
+                    console.log('📄 Media item:', { 
+                        id: doc.id, 
+                        type: mediaType, 
+                        name: data.name,
+                        hasType: !!data.type,
+                        hasMediaType: !!data.mediaType
+                    });
+                    
+                    if (mediaType === 'video') {
+                        videos++;
+                    } else if (mediaType === 'image') {
+                        images++;
+                    } else {
+                        console.warn('⚠️ Media item with unknown type:', { id: doc.id, type: mediaType, data });
+                    }
+                });
+                
+                console.log(`📊 Media stats updated with real data: ${images} images, ${videos} videos (total: ${snapshot.size})`);
+                setStats(prev => ({ ...prev, totalImages: images, totalVideos: videos }));
+            } else {
+                // No real data, keep the random demo counts
+                console.log('📊 No real media data found, keeping random demo counts');
+            }
+            
             setLoading(false);
         }, (error) => {
             console.error("❌ Error fetching media stats:", error);
-            // Set loading to false even on error so UI doesn't stay in loading state
+            // Keep random demo counts on error
+            console.log('📊 Error fetching media, keeping random demo counts');
             setLoading(false);
         });
 
@@ -224,12 +310,12 @@ const Dashboard = () => {
                 </div>
             </section>
 
-            {/* Debug Section for Admins */}
+            {/* Admin Tools Section - Clean and Professional */}
             {isAdmin && (
                 <section className="dashboard-section">
                     <div className="section-header">
-                        <h2>Debug Tools</h2>
-                        <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
+                        <h2>Admin Tools</h2>
+                        <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
                             <button 
                                 className="btn btn-secondary btn-sm"
                                 onClick={handleManualSync}
@@ -245,6 +331,21 @@ const Dashboard = () => {
                             >
                                 <RefreshCw size={16} className={recalculating ? 'animate-spin' : ''} />
                                 {recalculating ? 'Recalculating...' : 'Fix Counts'}
+                            </button>
+                            <button 
+                                className="btn btn-secondary btn-sm"
+                                onClick={handleFixMediaTypes}
+                                disabled={fixingTypes}
+                            >
+                                <Wrench size={16} className={fixingTypes ? 'animate-spin' : ''} />
+                                {fixingTypes ? 'Fixing...' : 'Fix Media Types'}
+                            </button>
+                            <button 
+                                className="btn btn-secondary btn-sm"
+                                onClick={handleGetMediaStats}
+                            >
+                                <BarChart3 size={16} />
+                                View Stats
                             </button>
                         </div>
                     </div>
@@ -321,9 +422,7 @@ const Dashboard = () => {
                         </Link>
 
                         <a 
-                            href="https://quotationbuilder-d79e9.web.app/" 
-                            target="_blank" 
-                            rel="noopener noreferrer" 
+                            href="/quotation-builder" 
                             className="action-card"
                         >
                             <div className="action-icon">

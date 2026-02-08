@@ -7,9 +7,9 @@ export const EMAIL_ROLE_MAPPINGS = {
     // ========================================
     // 👑 ADMIN EMAILS (Full Access)
     // ========================================
-    'admin@lifeasy.com': 'admin',
-    'owner@lifeasy.com': 'admin',
-    'manager@lifeasy.com': 'admin',
+    'admin@brassspace.com': 'admin',
+    'owner@brassspace.com': 'admin',
+    'manager@brassspace.com': 'admin',
     '1921sumitabe@gmail.com': 'admin', // Your email as admin (FIXED)
     '1921sumitsb@gmail.com': 'admin',  // Alternative spelling
     'admin@admin.com': 'admin',
@@ -23,9 +23,9 @@ export const EMAIL_ROLE_MAPPINGS = {
     // ========================================
     // 👨‍💼 STAFF EMAILS (Professional Access)
     // ========================================
-    'staff@lifeasy.com': 'staff',
-    'designer@lifeasy.com': 'staff',
-    'architect@lifeasy.com': 'staff',
+    'staff@brassspace.com': 'staff',
+    'designer@brassspace.com': 'staff',
+    'architect@brassspace.com': 'staff',
     
     // Add your staff emails here:
     // 'employee1@company.com': 'staff',

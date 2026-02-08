@@ -4,8 +4,8 @@
             "http://localhost:5173",
             "http://localhost:3000",
             "http://127.0.0.1:5173",
-            "https://lifeasy-int-lib.web.app",
-            "https://lifeasy-int-lib.firebaseapp.com"
+            "https://brass-space-interior.web.app",
+            "https://brass-space-interior.firebaseapp.com"
         ],
         "method": [
             "GET",

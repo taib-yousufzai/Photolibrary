@@ -1,0 +1,237 @@
+/* Profile Dropdown Styles */
+.profile-container {
+    position: relative;
+}
+
+.profile-btn {
+    background: none;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.2s ease;
+    color: var(--text-primary);
+}
+
+.profile-btn:hover {
+    background: var(--hover-bg);
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+}
+
+.user-name {
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px;
+}
+
+.user-role {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.chevron {
+    transition: transform 0.2s ease;
+    color: var(--text-muted);
+}
+
+.chevron.open {
+    transform: rotate(180deg);
+}
+
+.profile-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 280px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    overflow: hidden;
+    animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.profile-header {
+    padding: 20px;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.profile-avatar-large {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.profile-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.profile-info h3 {
+    margin: 0 0 4px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.profile-info p {
+    margin: 0 0 8px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.profile-role {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 600;
+    color: white;
+    letter-spacing: 0.5px;
+}
+
+.profile-menu {
+    padding: 8px 0;
+}
+
+.profile-menu-item {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--text-primary);
+    font-size: 14px;
+    text-align: left;
+}
+
+.profile-menu-item:hover {
+    background: var(--hover-bg);
+}
+
+.profile-menu-item svg {
+    color: var(--text-secondary);
+    flex-shrink: 0;
+}
+
+.profile-menu-item:hover svg {
+    color: var(--text-primary);
+}
+
+.profile-menu-divider {
+    height: 1px;
+    background: var(--border-color);
+    margin: 8px 0;
+}
+
+.profile-footer {
+    border-top: 1px solid var(--border-color);
+    padding: 8px 0;
+}
+
+.profile-menu-item.logout {
+    color: var(--error-color);
+}
+
+.profile-menu-item.logout:hover {
+    background: var(--error-bg);
+}
+
+.profile-menu-item.logout svg {
+    color: var(--error-color);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .user-info {
+        display: none;
+    }
+    
+    .profile-dropdown {
+        width: 260px;
+        right: -20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-dropdown {
+        width: 240px;
+        right: -40px;
+    }
+    
+    .profile-header {
+        padding: 16px;
+    }
+    
+    .profile-menu-item {
+        padding: 10px 16px;
+    }
+}

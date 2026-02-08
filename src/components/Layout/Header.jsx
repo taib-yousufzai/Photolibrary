@@ -2,9 +2,11 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/FirebaseAuthContext';
+import { useTheme } from '../../context/ThemeContext';
+import NotificationDropdown from '../NotificationDropdown';
+import ProfileDropdown from '../ProfileDropdown';
 import {
     Search,
-    Bell,
     Moon,
     Sun,
     Menu,
@@ -15,8 +17,8 @@ import './Header.css';
 
 const Header = ({ onMenuClick }) => {
     const [searchQuery, setSearchQuery] = useState('');
-    const [isDark, setIsDark] = useState(true);
     const { user, userRole } = useAuth();
+    const { isDark, toggleTheme } = useTheme();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -100,22 +102,15 @@ const Header = ({ onMenuClick }) => {
             <div className="header-right">
                 <button
                     className="header-btn"
-                    onClick={() => setIsDark(!isDark)}
+                    onClick={toggleTheme}
                     aria-label="Toggle theme"
                 >
                     {isDark ? <Sun size={20} /> : <Moon size={20} />}
                 </button>
 
-                <button className="header-btn notification-btn" aria-label="Notifications">
-                    <Bell size={20} />
-                    <span className="notification-badge">3</span>
-                </button>
+                <NotificationDropdown />
 
-                <div className="header-user">
-                    <div className="user-avatar-small">
-                        {user?.displayName?.[0] || user?.email?.[0] || 'U'}
-                    </div>
-                </div>
+                <ProfileDropdown />
             </div>
         </header>
     );

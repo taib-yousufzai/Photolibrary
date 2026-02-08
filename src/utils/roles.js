@@ -1,4 +1,4 @@
-// Role definitions
+// Role definitions for Brass Space Interior Solution
 export const ROLES = {
     ADMIN: 'admin',
     STAFF: 'staff',
@@ -15,18 +15,20 @@ export const PERMISSIONS = {
         canManageCategories: true,
         canManageUsers: true,
         canViewAnalytics: true,
-        canFavorite: true
+        canFavorite: true,
+        canAccessQuotationBuilder: true
     },
     [ROLES.STAFF]: {
-        canUpload: false,
+        canUpload: true,              // ✅ Staff can upload
         canDelete: false,
         canDownload: true,
         canScreenshot: true,
         canShare: true,
         canManageCategories: false,
         canManageUsers: false,
-        canViewAnalytics: false,
-        canFavorite: true
+        canViewAnalytics: true,       // ✅ Staff can view limited analytics
+        canFavorite: true,
+        canAccessQuotationBuilder: true
     },
     [ROLES.CLIENT]: {
         canUpload: false,
@@ -37,6 +39,7 @@ export const PERMISSIONS = {
         canManageCategories: false,
         canManageUsers: false,
         canViewAnalytics: false,
-        canFavorite: true
+        canFavorite: true,
+        canAccessQuotationBuilder: false  // ❌ Clients cannot access Quotation Builder
     }
 };

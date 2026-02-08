@@ -4,12 +4,12 @@ import { getFirestore, collection, getDocs } from 'firebase/firestore';
 
 // Config from src/firebase/config.js (Simplified for node script)
 const firebaseConfig = {
-    apiKey: "AIzaSyDWzuEi0XvHj9SKEpj1xEe7TMLxfMh3r98",
-    authDomain: "lifeasy-lib-9dc5b.firebaseapp.com",
-    projectId: "lifeasy-lib-9dc5b",
-    storageBucket: "lifeasy-lib-9dc5b.firebasestorage.app",
-    messagingSenderId: "306247620264",
-    appId: "1:306247620264:web:2f70fa76b1a9f3299e949d"
+    apiKey: "AIzaSyDJDgPtpP4ZO5_ZulUDQFmr99DWltywmn4",
+    authDomain: "brass-libs.firebaseapp.com",
+    projectId: "brass-libs",
+    storageBucket: "brass-libs.firebasestorage.app",
+    messagingSenderId: "492704979776",
+    appId: "1:492704979776:web:5ac844ae6bfa8d564eb8a5"
 };
 
 const app = initializeApp(firebaseConfig);

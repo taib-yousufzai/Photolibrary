@@ -1,10 +1,10 @@
-# Morphium Photo Library 🏠
+# Brass Space Interior Solution - Photo Library 🏠
 
 A comprehensive interior design library application built with React, Firebase, and Vite. Browse, organize, and manage thousands of interior design images and videos across 14+ categories.
 
 ## ✨ Features
 
-### 🛠️ Morphium Suite Tools
+### 🛠️ Brass Space Interior Suite Tools
 - **[Quotation Builder](https://quotationbuilder-d79e9.web.app/)**: Create professional quotations for clients
 - **[Mood Board Builder](https://vietual-office.web.app/)**: Create visual mood boards for design projects
 
@@ -51,7 +51,7 @@ A comprehensive interior design library application built with React, Firebase, 
 1. **Clone and Install**
    ```bash
    git clone <repository-url>
-   cd morphium-photo-library
+   cd brass-space-interior-library
    npm install
    ```
 
@@ -77,7 +77,7 @@ A comprehensive interior design library application built with React, Firebase, 
 ## 📁 Project Structure
 
 ```
-morphium-photo-library/
+brass-space-interior-library/
 ├── src/
 │   ├── components/
 │   │   └── Layout/           # Layout components
@@ -185,4 +185,4 @@ This project is licensed under the MIT License.
 
 ---
 
-Built with ❤️ for interior designers and architects
+Built with ❤️ by Brass Space Interior Solution

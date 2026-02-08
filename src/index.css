@@ -1,5 +1,5 @@
 /* ===================================
-   Interior Design Library - Design System
+   Brass Space Interior Solution - Design System
    Premium Dark Theme with Gold Accents
    =================================== */
 
@@ -20,47 +20,19 @@
     --gold-800: #47370b;
     --gold-900: #181304;
 
-    /* Neutral Colors - Dark Theme */
-    --bg-primary: #0a0a0b;
-    --bg-secondary: #111113;
-    --bg-tertiary: #18181b;
-    --bg-card: #1c1c1f;
-    --bg-hover: #27272a;
-    --bg-active: #3f3f46;
-
-    /* Text Colors */
-    --text-primary: #fafafa;
-    --text-secondary: #a1a1aa;
-    --text-tertiary: #71717a;
-    --text-muted: #52525b;
-
-    /* Accent Colors */
-    --accent-primary: var(--gold-400);
-    --accent-secondary: var(--gold-500);
-    --accent-hover: var(--gold-300);
-
     /* Status Colors */
-    --success: #22c55e;
-    --warning: #f59e0b;
-    --error: #ef4444;
-    --info: #3b82f6;
+    --success-color: #22c55e;
+    --warning-color: #f59e0b;
+    --error-color: #ef4444;
+    --info-color: #3b82f6;
+    --primary-color: var(--gold-400);
 
-    /* Borders */
-    --border-subtle: rgba(255, 255, 255, 0.06);
-    --border-default: rgba(255, 255, 255, 0.1);
-    --border-strong: rgba(255, 255, 255, 0.15);
-
-    /* Shadows */
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
-    --shadow-glow: 0 0 40px rgba(237, 184, 43, 0.15);
-
-    /* Glass Effect */
-    --glass-bg: rgba(28, 28, 31, 0.7);
-    --glass-border: rgba(255, 255, 255, 0.08);
-    --glass-blur: blur(20px);
+    /* Status Backgrounds */
+    --success-bg: rgba(34, 197, 94, 0.15);
+    --warning-bg: rgba(245, 158, 11, 0.15);
+    --error-bg: rgba(239, 68, 68, 0.15);
+    --info-bg: rgba(59, 130, 246, 0.15);
+    --primary-bg: rgba(237, 184, 43, 0.15);
 
     /* Spacing */
     --space-1: 0.25rem;
@@ -94,6 +66,107 @@
     /* Sidebar */
     --sidebar-width: 280px;
     --sidebar-collapsed: 80px;
+}
+
+/* Dark Theme (Default) */
+:root,
+.dark-theme {
+    /* Neutral Colors - Dark Theme */
+    --bg-primary: #0a0a0b;
+    --bg-secondary: #111113;
+    --bg-tertiary: #18181b;
+    --card-bg: #1c1c1f;
+    --hover-bg: #27272a;
+    --bg-active: #3f3f46;
+
+    /* Text Colors */
+    --text-primary: #fafafa;
+    --text-secondary: #a1a1aa;
+    --text-tertiary: #71717a;
+    --text-muted: #52525b;
+
+    /* Accent Colors */
+    --accent-primary: var(--gold-400);
+    --accent-secondary: var(--gold-500);
+    --accent-hover: var(--gold-300);
+
+    /* Status Colors */
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --error: #ef4444;
+    --info: #3b82f6;
+
+    /* Borders */
+    --border-color: rgba(255, 255, 255, 0.1);
+    --border-light: rgba(255, 255, 255, 0.06);
+    --border-subtle: rgba(255, 255, 255, 0.06);
+    --border-default: rgba(255, 255, 255, 0.1);
+    --border-strong: rgba(255, 255, 255, 0.15);
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+    --shadow-glow: 0 0 40px rgba(237, 184, 43, 0.15);
+
+    /* Glass Effect */
+    --glass-bg: rgba(28, 28, 31, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-blur: blur(20px);
+
+    /* Notification specific */
+    --notification-unread-bg: rgba(59, 130, 246, 0.05);
+}
+
+/* Light Theme */
+.light-theme {
+    /* Neutral Colors - Light Theme */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-tertiary: #f1f5f9;
+    --card-bg: #ffffff;
+    --hover-bg: #f1f5f9;
+    --bg-active: #e2e8f0;
+
+    /* Text Colors */
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-tertiary: #64748b;
+    --text-muted: #94a3b8;
+
+    /* Accent Colors */
+    --accent-primary: var(--gold-600);
+    --accent-secondary: var(--gold-700);
+    --accent-hover: var(--gold-500);
+
+    /* Status Colors */
+    --success: #16a34a;
+    --warning: #d97706;
+    --error: #dc2626;
+    --info: #2563eb;
+
+    /* Borders */
+    --border-color: #e2e8f0;
+    --border-light: #f1f5f9;
+    --border-subtle: #f1f5f9;
+    --border-default: #e2e8f0;
+    --border-strong: #cbd5e1;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    --shadow-glow: 0 0 40px rgba(212, 160, 32, 0.2);
+
+    /* Glass Effect */
+    --glass-bg: rgba(255, 255, 255, 0.8);
+    --glass-border: rgba(0, 0, 0, 0.08);
+    --glass-blur: blur(20px);
+
+    /* Notification specific */
+    --notification-unread-bg: rgba(59, 130, 246, 0.08);
 }
 
 /* Reset & Base */
@@ -166,7 +239,7 @@ p {
 }
 
 a {
-    color: var(--accent-primary);
+    color: var(--primary-color);
     text-decoration: none;
     transition: color var(--transition-fast);
 }
@@ -226,28 +299,51 @@ a:hover {
     cursor: pointer;
     transition: all var(--transition-fast);
     white-space: nowrap;
+    font-family: var(--font-sans);
+    line-height: 1;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
 }
 
 .btn-primary {
     background: linear-gradient(135deg, var(--gold-400), var(--gold-600));
     color: var(--bg-primary);
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(237, 184, 43, 0.3);
 }
 
-.btn-primary:hover {
+.btn-primary:hover:not(:disabled) {
     background: linear-gradient(135deg, var(--gold-300), var(--gold-500));
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(237, 184, 43, 0.4);
+}
+
+.btn-primary:active:not(:disabled) {
+    transform: translateY(0);
 }
 
 .btn-secondary {
-    background: var(--bg-card);
+    background: rgba(255, 255, 255, 0.08);
     color: var(--text-primary);
-    border: 1px solid var(--border-default);
+    border: 1px solid var(--border-color);
+    font-weight: 500;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
-.btn-secondary:hover {
-    background: var(--bg-hover);
+.btn-secondary:hover:not(:disabled) {
+    background: var(--hover-bg);
     border-color: var(--border-strong);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn-secondary:active:not(:disabled) {
+    transform: translateY(0);
 }
 
 .btn-ghost {
@@ -255,14 +351,24 @@ a:hover {
     color: var(--text-secondary);
 }
 
-.btn-ghost:hover {
-    background: var(--bg-hover);
+.btn-ghost:hover:not(:disabled) {
+    background: var(--hover-bg);
     color: var(--text-primary);
 }
 
 .btn-icon {
     padding: var(--space-3);
     border-radius: var(--radius-md);
+}
+
+.btn-sm {
+    padding: var(--space-2) var(--space-4);
+    font-size: 0.8125rem;
+}
+
+.btn-lg {
+    padding: var(--space-4) var(--space-6);
+    font-size: 1rem;
 }
 
 /* Input Styles */
@@ -290,8 +396,8 @@ a:hover {
 
 .input:focus {
     outline: none;
-    border-color: var(--accent-primary);
-    box-shadow: 0 0 0 3px rgba(237, 184, 43, 0.15);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--primary-bg);
 }
 
 .input::placeholder {
@@ -300,7 +406,7 @@ a:hover {
 
 /* Card Styles */
 .card {
-    background: var(--bg-card);
+    background: var(--card-bg);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-xl);
     overflow: hidden;
@@ -321,18 +427,18 @@ a:hover {
     font-size: 0.75rem;
     font-weight: 500;
     border-radius: var(--radius-full);
-    background: var(--bg-hover);
+    background: var(--hover-bg);
     color: var(--text-secondary);
 }
 
 .badge-gold {
-    background: rgba(237, 184, 43, 0.15);
+    background: var(--primary-bg);
     color: var(--gold-400);
 }
 
 .badge-success {
-    background: rgba(34, 197, 94, 0.15);
-    color: var(--success);
+    background: var(--success-bg);
+    color: var(--success-color);
 }
 
 /* Grid Layouts */
@@ -454,9 +560,9 @@ a:hover {
 /* Loading States */
 .skeleton {
     background: linear-gradient(90deg,
-            var(--bg-hover) 25%,
+            var(--hover-bg) 25%,
             var(--bg-active) 50%,
-            var(--bg-hover) 75%);
+            var(--hover-bg) 75%);
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite;
     border-radius: var(--radius-md);
@@ -497,7 +603,7 @@ a:hover {
 
 /* Focus States for Accessibility */
 :focus-visible {
-    outline: 2px solid var(--accent-primary);
+    outline: 2px solid var(--primary-color);
     outline-offset: 2px;
 }
 
@@ -507,7 +613,7 @@ a:hover {
     bottom: var(--space-6);
     right: var(--space-6);
     padding: var(--space-4) var(--space-6);
-    background: var(--bg-card);
+    background: var(--card-bg);
     border: 1px solid var(--border-default);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-xl);
@@ -546,7 +652,7 @@ a:hover {
 }
 
 .modal-content {
-    background: var(--bg-card);
+    background: var(--card-bg);
     border: 1px solid var(--border-default);
     border-radius: var(--radius-2xl);
     max-width: 90vw;

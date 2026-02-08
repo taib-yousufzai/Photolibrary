@@ -1,0 +1,68 @@
+rules_version = '2';
+
+// Firebase Storage Security Rules for Brass Space Interior Solution
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function getUserRole() {
+      return request.auth.token.role;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && getUserRole() == 'admin';
+    }
+    
+    function isStaff() {
+      return isAuthenticated() && getUserRole() == 'staff';
+    }
+    
+    function isAdminOrStaff() {
+      return isAdmin() || isStaff();
+    }
+    
+    function isValidImageSize() {
+      return request.resource.size <= 10 * 1024 * 1024; // 10MB for images
+    }
+    
+    function isValidVideoSize() {
+      return request.resource.size <= 200 * 1024 * 1024; // 200MB for videos
+    }
+    
+    function isImage() {
+      return request.resource.contentType.matches('image/.*');
+    }
+    
+    function isVideo() {
+      return request.resource.contentType.matches('video/.*');
+    }
+    
+    function isValidMediaType() {
+      return (isImage() && isValidImageSize()) || (isVideo() && isValidVideoSize());
+    }
+
+    // Interior library storage path
+    match /interior-library/{category}/{subcategory}/{mediaType}/{filename} {
+      // Everyone authenticated can read
+      allow read: if isAuthenticated();
+      
+      // Only admin and staff can upload
+      allow create: if isAdminOrStaff() && isValidMediaType();
+      
+      // Only admin can delete
+      allow delete: if isAdmin();
+      
+      // Only admin and staff can update
+      allow update: if isAdminOrStaff() && isValidMediaType();
+    }
+    
+    // Catch-all for other paths (deny by default)
+    match /{allPaths=**} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+  }
+}

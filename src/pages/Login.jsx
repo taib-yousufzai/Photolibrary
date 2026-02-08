@@ -51,7 +51,7 @@ const Login = () => {
                             Your Complete Design <span className="highlight">Resource Hub</span>
                         </h1>
                         <p className="brand-description">
-                            Access thousands of curated interior design images and videos.
+                            Access thousands of curated interior design images and videos from Brass Space Interior Solution.
                             Browse by category, save favorites, and inspire your next project.
                         </p>
                         <div className="brand-features">

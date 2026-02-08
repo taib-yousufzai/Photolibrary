@@ -61,11 +61,11 @@ const PREDEFINED_USERS = {
     // Admin users
     'admin@admin.com': { password: 'admin123', role: 'admin', name: 'Admin User' },
     '1921sumitabe@gmail.com': { password: 'admin123', role: 'admin', name: 'Sumit Admin' },
-    'admin@lifeasy.com': { password: 'admin123', role: 'admin', name: 'Lifeasy Admin' },
+    'admin@brassspace.com': { password: 'admin123', role: 'admin', name: 'Brass Space Interior Admin' },
     
     // Staff users
     'staff@staff.com': { password: 'staff123', role: 'staff', name: 'Staff User' },
-    'designer@lifeasy.com': { password: 'staff123', role: 'staff', name: 'Designer' },
+    'designer@brassspace.com': { password: 'staff123', role: 'staff', name: 'Designer' },
     
     // Client users
     'client@client.com': { password: 'client123', role: 'client', name: 'Client User' },

@@ -2,59 +2,84 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
-      // Temporary: Allow public access to bypass Auth/Network blocking
-      allow read, write: if true;
-    }
-    
-    // Helper function to get role from Custom Claims OR Firestore Document (fallback)
-    function role() {
-      return request.auth.token.role;
-    }
-
-    // Check if user is admin via Claims OR Firestore Doc
-    function isAdmin() { 
-      return request.auth.token.role == "admin" || 
-             (exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
-              get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin") ||
-             request.auth.token.email.matches(".*admin@gmail.com"); // Regex or simple check
-    }
-    
-    function isSales() { return role() == "sales"; }
-    function isDesigner() { return role() == "designer"; }
-
-    // Helper function to check if user is authenticated
+    // Helper functions
     function isAuthenticated() {
       return request.auth != null;
+    }
+    
+    function getUserRole() {
+      return request.auth.token.role;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && getUserRole() == 'admin';
+    }
+    
+    function isStaff() {
+      return isAuthenticated() && getUserRole() == 'staff';
+    }
+    
+    function isClient() {
+      return isAuthenticated() && getUserRole() == 'client';
+    }
+    
+    function isAdminOrStaff() {
+      return isAdmin() || isStaff();
     }
 
     // Users collection
     match /users/{uid} {
-      allow read, write: if true; // DEBUG: Allow all
-      
-      match /favorites/{favoriteId} {
-        allow read, write: if true; // DEBUG: Allow all
-      }
+      // Users can read their own document
+      allow read: if isAuthenticated() && request.auth.uid == uid;
+      // Users can update their own favorites
+      allow update: if isAuthenticated() && request.auth.uid == uid 
+                    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['favorites', 'lastLogin']);
+      // Only admins can create users or change roles
+      allow create, delete: if isAdmin();
+      // Only admins can update user roles
+      allow update: if isAdmin();
     }
 
     // Media collection
-    match /media/{id} {
-      allow read, write: if true; // DEBUG
-    }
-    
-    // Quotations collection
-    match /quotations/{id} {
-      allow read, write: if true; // DEBUG
+    match /media/{mediaId} {
+      // Everyone authenticated can read media
+      allow read: if isAuthenticated();
+      // Only admin and staff can upload media
+      allow create: if isAdminOrStaff();
+      // Only admin can delete media
+      allow delete: if isAdmin();
+      // Only admin and staff can update media metadata
+      allow update: if isAdminOrStaff();
     }
 
     // Categories collection
     match /categories/{categoryId} {
-      allow read, write: if true; // DEBUG
+      // Everyone authenticated can read categories
+      allow read: if isAuthenticated();
+      // Only admin can manage categories
+      allow write: if isAdmin();
     }
     
     // Analytics collection
     match /analytics/{docId} {
-      allow read, write: if true; // DEBUG
+      // Only admin and staff can read analytics
+      allow read: if isAdminOrStaff();
+      // Only admin and staff can write analytics
+      allow write: if isAdminOrStaff();
+    }
+    
+    // Quotations collection (if exists)
+    match /quotations/{quotationId} {
+      // Only admin and staff can access quotations
+      allow read, write: if isAdminOrStaff();
+    }
+    
+    // Pricing collection - for real-time price synchronization
+    match /pricing/{pricingId} {
+      // Everyone authenticated can read pricing data
+      allow read: if isAuthenticated();
+      // Only admin can create, update, or delete pricing
+      allow write: if isAdmin();
     }
   }
 }
